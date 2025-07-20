@@ -1,0 +1,40 @@
+.margin-hiro,
+.ttb-hiro {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  text-align: right;
+  box-sizing: border-box; /* borders & padding inside width */
+  width: 34px;
+  min-width: 34px;
+  max-width: 34px;
+  padding: 2px;
+  flex-shrink: 0;
+}
+
+.hiro-subtitle {
+  font-size: 10px;
+  line-height: 10px;
+  color: pink;
+  opacity: 0.7;
+}
+.hiro-value {
+  font-size: 10px;
+  line-height: 14px;
+}
+
+.margin-hiro.warning,
+.ttb-hiro.warning {
+  background-color: black;
+  border: 1px solid #FFE400;
+}
+.margin-hiro.danger,
+.ttb-hiro.danger {
+  background-color: black;
+  border: 1px solid #F95555;
+}
+.margin-hiro.hidden,
+.ttb-hiro.hidden {
+  display: none;
+}

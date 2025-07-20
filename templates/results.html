@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Results</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 20px; }
+  ul { list-style-type: none; padding: 0; }
+  li { margin-bottom: 15px; padding: 10px; border: 1px solid #ccc; background: #fafafa; }
+  
+  .meter-flow.healthy { background: gray; color: white; padding: 2px 5px; display: inline-block; margin-bottom: 5px; }
+  .meter-flow.warning { background: yellow; color: black; padding: 2px 5px; display: inline-block; margin-bottom: 5px; }
+  .meter-flow.urgent { background: black; color: red; border: 1px solid red; padding: 2px 5px; display: inline-block; margin-bottom: 5px; }
+
+  .constraint-name.system-tag {
+    font-weight: bold;
+    color: #F83838;
+  }
+  .constraint-name.normal {
+    font-weight: normal;
+    color: black;
+  }
+
+  .margin.healthy { color: green; }
+  .margin.warning { color: orange; }
+  .margin.urgent { color: red; }
+
+  .time.healthy { color: green; }
+  .time.warning { color: orange; }
+  .time.urgent { color: red; }
+</style>
+</head>
+<body>
+<h1>Game Results</h1>
+
+{% for result in results %}
+  <h2>Round {{ result.round }}</h2>
+  <ul>
+  {% for item in result.order %}
+    <li>
+      <div class="meter-flow {{ item.meter_flow_state }}">{{ item.meter_flow_state|capitalize }}</div><br>
+      <div class="constraint-name {% if item.is_system_tag %}system-tag{% else %}normal{% endif %}">
+        {{ item.constraint_name }}
+      </div>
+      <div class="margin
+        {% if item.margin >= 31 %}healthy{% elif item.margin >= 6 %}warning{% else %}urgent{% endif %}">
+        Margin: {{ item.margin }} MW
+      </div>
+      <div class="time
+        {% if item.time_to_breach == 0 %}urgent{% elif item.time_to_breach <= 5 %}urgent{% elif item.time_to_breach <= 15 %}warning{% else %}healthy{% endif %}">
+        Time to breach: {{ "NOW" if item.time_to_breach == 0 else item.time_to_breach ~ " min" }}
+      </div>
+    </li>
+  {% endfor %}
+  </ul>
+{% endfor %}
+
+</body>
+</html>

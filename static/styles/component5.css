@@ -1,0 +1,40 @@
+.margin-wawa,
+.ttb-wawa {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  text-align: right;
+  box-sizing: border-box;
+  width: 34px;
+  min-width: 34px;
+  max-width: 34px;
+  padding: 2px;
+  flex-shrink: 0;
+}
+
+.wawa-subtitle {
+  font-size: 10px;
+  line-height: 10px;
+  opacity: 0.7;
+  color: blueviolet;
+}
+.wawa-value {
+  font-size: 10px;
+  line-height: 14px;
+}
+
+.margin-wawa.warning,
+.ttb-wawa.warning {
+  background-color: black;
+  border: 1px solid #FFE400;
+}
+.margin-wawa.danger,
+.ttb-wawa.danger {
+  background-color: black;
+  border: 1px solid #F95555;
+}
+.margin-wawa.hidden,
+.ttb-wawa.hidden {
+  display: none;
+}

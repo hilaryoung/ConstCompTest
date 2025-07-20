@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Welcome</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 20px; }
+      label { display: block; margin-top: 10px; }
+      input { padding: 5px; width: 200px; }
+      button { margin-top: 20px; padding: 10px 20px; font-size: 16px; }
+      .error { color: red; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Const game test</h1>
+
+    {% if error %}
+      <div class="error">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST" id="startForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="{{ name|default('') }}" required />
+
+        <label for="role">Role:</label>
+        <input type="text" id="role" name="role" value="{{ role|default('') }}" required />
+
+        <button type="submit" id="startBtn" disabled>Start</button>
+    </form>
+
+    <script>
+      const nameInput = document.getElementById('name');
+      const roleInput = document.getElementById('role');
+      const startBtn = document.getElementById('startBtn');
+
+      function validate() {
+        if(nameInput.value.trim() !== '' && roleInput.value.trim() !== '') {
+          startBtn.disabled = false;
+        } else {
+          startBtn.disabled = true;
+        }
+      }
+
+      nameInput.addEventListener('input', validate);
+      roleInput.addEventListener('input', validate);
+
+      // Initial check in case values are prefilled
+      validate();
+    </script>
+</body>
+</html>

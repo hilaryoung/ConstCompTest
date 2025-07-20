@@ -1,0 +1,174 @@
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('../font/IBM_Plex_Mono/IBM-Plex-Mono-Regular.woff2') format('woff2'),
+       url('../font/IBM_Plex_Mono/IBM-Plex-Mono-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+body{
+  font-family: 'IBM Plex Mono', monospace, sans-serif;
+}
+.kiko-body {
+  display: flex;
+  flex-grow: 1;
+  align-items: stretch;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.constraint-name {
+  display: flex;
+  align-items: center;
+  padding-left: 6px;
+  font-size: 12px;
+  width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.system-tag {
+  color: #F83838;
+  font-weight: bold;
+}
+
+/* Metrics container for momo layout */
+.metrics.momo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 1px;
+}
+
+/* Metric box base styles */
+.metric-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1px 4px;
+  line-height: 1;
+  text-align: right;
+  color: white;
+  user-select: none;
+  width: 38px;
+}
+
+/* Label inside metric box */
+.metric-box .label {
+  opacity: 0.8;
+}
+
+/* Value inside metric box */
+.metric-box .value {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 2px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* Margin box specific styles */
+.metrics.momo .metric-box.margin {
+  width: 46px; /* wider to accommodate MW */
+  height: 20px;
+  border: none;
+  box-sizing: border-box;
+  font-weight: 400;
+}
+
+/* Margin box states */
+.metrics.momo .metric-box.margin.healthy {
+  background-color: #252B2F;
+  color: hsl(195, 2%, 45%);
+  border: 1px solid #252B2F;
+}
+
+.metrics.momo .metric-box.margin.warning {
+  background-color: black;
+  border: 1px solid #FFE400;
+  font-weight: 700;
+  color: #FFE400;
+}
+
+.metrics.momo .metric-box.margin.urgent {
+  background-color: black;
+  border: 1px solid #F83838;
+  font-weight: 700;
+  color: #F83838;
+}
+
+/* MW text styling inside margin box */
+.metrics.momo .metric-box.margin .mw-text {
+  font-size: 8px;
+  font-weight: normal !important;
+  line-height: 1;
+  user-select: none;
+}
+
+.metrics.momo .metric-box.margin.healthy .mw-text {
+  color: #707374;
+  font-weight: 400;
+}
+
+.metrics.momo .metric-box.margin.warning .mw-text {
+  color: #FFE400;
+}
+
+.metrics.momo .metric-box.margin.urgent .mw-text {
+  color: #F83838;
+}
+
+/* TTB box base styles */
+.metrics.momo .metric-box.ttb {
+  position: relative;
+  width: 46px;
+  height: 8px;
+  padding: 0;
+  background-color: #3E474F; /* base bg */
+  border: 1px solid #3E474F;
+  overflow: hidden;
+  border: none;
+  color: #707374; /* default healthy color */
+}
+
+/* TTB states */
+.metrics.momo .metric-box.ttb.healthy {
+  border: 1px solid #3E474F;
+  color: #252B2F;
+}
+
+.metrics.momo .metric-box.ttb.warning {
+  color: #FFE400;
+  border-left: 1px solid #FFE400;
+  border-right: 1px solid #FFE400;
+}
+
+.metrics.momo .metric-box.ttb.urgent {
+  color: #F83838;
+  border-left: 1px solid #F83838;
+  border-right: 1px solid #F83838;
+}
+
+/* Hide TTB label and value */
+.metrics.momo .metric-box.ttb .label,
+.metrics.momo .metric-box.ttb .value {
+  display: none;
+}
+
+/* Progress fill inside TTB */
+.metrics.momo .metric-box.ttb .progress-fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  background-color: currentColor;
+  transition: width 0.5s ease;
+  z-index: 1;
+  pointer-events: none;
+}

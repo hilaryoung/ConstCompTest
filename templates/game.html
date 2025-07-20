@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Constraint Component UI Testing</title>
+
+  <!-- Shared base layout styles -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/base.css') }}">
+
+  <!-- Round-specific styles -->
+  {% if round == 1 %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/round1.css') }}">
+  {% elif round == 2 %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/round2.css') }}">
+  {% elif round == 3 %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/round3.css') }}">
+  {% elif round == 4 %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/round4.css') }}">
+  {% elif round == 5 %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/round5.css') }}">
+  {% endif %}
+
+  <!-- jQuery & jQuery UI -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="page-container">
+
+    <!--<h1>Round {{ round }}</h1>-->
+    
+    <div class="game-header">
+        <div class="header-title">
+            Constraint Component Testing   
+            <div class="header-divider2"></div>  
+            Round {{ round_counter }} {{ round }} <!--{{ round }}-->
+        </div>
+
+        <div class="header-description">
+            Drag and drop the constraints on the left panel to rank them from 
+            <span style="font-weight: bold; color: #4554E5;">highest to lowest priority</span> 
+            based on what needs your attention most.
+            <br>
+            <span style="font-weight: bold; color: #4554E5;">Highest</span> 
+            priority at the 
+            <span style="font-weight: bold; color: #4554E5;">top</span> 
+             and 
+             <span style="font-weight: bold; color: #4554E5;">lowest</span> priority at the 
+             <span style="font-weight: bold; color: #4554E5;">bottom</span>.
+        </div>
+
+    </div>
+
+    <div class="game-area">
+
+        <div class="constraint-container">
+
+            <!--Header -------------------------------------------------------------------------->
+            <div class="constraint-header-bar">
+                <!-- Refresh Icon -->
+                <div class="header-icon">
+                    <img src="{{ url_for('static', filename='icons/renew.png') }}" alt="Refresh" class="refresh-icon">
+                </div>
+                <!-- Divider -->
+                <div class="header-divider"></div>
+                <!-- Title with Chevron -->
+                <div class="header-title">
+                    Constraint Monitor
+                </div>
+                <!-- Divider -->
+                <div class="header-divider"></div>
+                <div class="header-title">
+                    {{ session['role'] }}
+                </div>
+            </div>
+
+            <!--Constraint Column Area ----------------------------------------------------->
+            <div class="row">
+                <div class="right-column">
+                    <div class="back-button">
+                        <img src="{{ url_for('static', filename='icons/back.png') }}" alt="Back" class="back-icon">
+                        Back
+                    </div>
+
+                    <div class="search-button">
+                        <img src="{{ url_for('static', filename='icons/search.png') }}" alt="Back" class="back-icon">
+                        Search...
+                    </div>
+
+                    <!--CONSTRAINT COMPONENT AREA --------------------------------------------------->
+
+                    <ul id="sortable">
+                        {% for item in items %}
+                            {% set meter = item.meter_flow_state %}
+                            {% set margin = item.margin %}
+                            {% set time = item.time_to_breach %}
+                            {% set is_system = item.is_system_tag %}
+                            {% set hide_metrics = round == 3 and margin >= 11 and time > 15 %}
+
+                            <li class="kiko-constraint"
+                                data-id="{{ item.id }}"
+                                data-meter="{{ meter }}"
+                                data-margin="{{ margin }}"
+                                data-time="{{ time }}"
+                                data-constraint-name="{{ item.constraint_name }}"
+                                data-is-system="{{ 'true' if is_system else 'false' }}">
+
+                            <div class="meter-bar {{ meter }}"></div>
+
+                            <div class="kiko-body">
+                                {% if round != 5 %}
+                                    <div class="constraint-name"> 
+                                        {% if is_system %}
+                                            <span class="system-tag">{{ item.constraint_name }}</span>
+                                        {% else %}
+                                            {{ item.constraint_name }}
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+
+                                {% if round == 1 %}
+                                    {% set margin_state = 'healthy' if margin >= 11 else ('warning' if margin >= 1 else 'urgent') %}
+                                    {% set ttb_state = 'healthy' if time > 15 else ('warning' if time > 5 else 'urgent') %}
+
+                                    {% if not (margin_state == 'healthy' and ttb_state == 'healthy') %}
+                                    <div class="metrics">
+                                        <!-- Margin -->
+                                        <div class="metric-box margin {{ margin_state }}">
+                                        <div class="label">MRG</div>
+                                        <div class="value">{{ margin }}</div>
+                                        </div>
+
+                                        <!-- TTB -->
+                                        <div class="metric-box ttb {{ ttb_state }}" data-ttb="{{ time }}">
+                                        <div class="label">TTB</div>
+                                        <div class="value">{{ 'NOW' if time == 0 else time }}</div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+
+
+                                {% elif round == 2 %}
+                                <div class="metrics momo">
+                                    <!-- Margin -->
+                                    <div class="metric-box margin
+                                    {% if margin >= 11 %}healthy
+                                    {% elif margin >= 1 %}warning
+                                    {% else %}urgent{% endif %}">
+                                    <div class="value">{{ margin }}<span class="mw-text">MW</span></div>
+                                    </div>
+
+                                    <!-- TTB -->
+                                    <div class="metric-box ttb
+                                    {% if time == 0 or time <= 5 %}urgent
+                                    {% elif time <= 15 %}warning
+                                    {% else %}healthy{% endif %}"
+                                    data-ttb="{{ time }}">
+                                    <div class="progress-fill"></div>
+                                    </div>
+                                </div>
+
+                                {% elif round == 3 %}
+                                {% if not hide_metrics %}
+                                    <div class="metrics">
+                                    <div class="metric-box margin
+                                        {% if margin >= 11 %}healthy
+                                        {% elif margin >= 1 %}warning
+                                        {% else %}urgent{% endif %}">
+                                        <div class="value">{{ margin }}</div>
+                                    </div>
+
+                                    <div class="metric-box ttb
+                                        {% if time == 0 or time <= 5 %}urgent
+                                        {% elif time <= 15 %}warning
+                                        {% else %}healthy{% endif %}"
+                                        data-ttb="{{ time }}">
+                                        <div class="value">{{ 'NOW' if time == 0 else time }}</div>
+                                    </div>
+                                    </div>
+                                {% endif %}
+
+                                {% elif round == 4 %}
+                                <div class="metrics">
+                                    <!-- Margin -->
+                                    <div class="metric-box margin round4
+                                    {% if margin >= 11 %}healthy
+                                    {% elif margin >= 1 %}round4-warning
+                                    {% else %}round4-urgent{% endif %}">
+                                    <div class="value">
+                                        {{ margin }}<span class="mw-text"> MW</span>
+                                    </div>
+                                    </div>
+
+                                    <!-- TTB & Gray Box container -->
+                                    <div class="metric-box ttb-container">
+                                    <div class="metric-box ttb round4
+                                        {% if time == 0 or time <= 5 %}round4-urgent
+                                        {% elif time <= 15 %}round4-warning
+                                        {% else %}healthy{% endif %}">
+                                    </div>
+                                    <div class="gray-box"></div>
+                                    </div>
+                                </div>
+
+
+                                {% elif round == 5 %}
+                                <div class="constraint-name">
+                                    {% if is_system %}
+                                        <span class="system-tag">{{ item.constraint_name }}</span>
+                                    {% else %}
+                                        {{ item.constraint_name }}
+                                    {% endif %}
+
+                                    {% set margin_healthy = margin >= 11 %}
+                                    {% set ttb_healthy = time > 15 %}
+
+                                    {% if not (margin_healthy and ttb_healthy) %}
+                                    <div class="metrics">
+                                        <!-- Margin -->
+                                        <div class="metric-box margin round4
+                                            {% if margin_healthy %}healthy
+                                            {% elif margin >= 6 %}round4-warning
+                                            {% else %}round4-urgent{% endif %}">
+                                            <div class="metric-row">
+                                                <div class="label">MRG:</div>
+                                                <div class="value">{{ margin }}</div>
+                                            </div>
+                                        </div>
+
+                                        <!-- TTB -->
+                                        <div class="metric-box ttb round4
+                                            {% if time == 0 or time <= 5 %}round4-urgent
+                                            {% elif time <= 15 %}round4-warning
+                                            {% else %}healthy{% endif %}">
+                                            <div class="metric-row">
+                                                <div class="label">TTB:</div>
+                                                <div class="value">{{ 'NOW' if time == 0 else time }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+
+
+                                {% endif %}
+
+                            </div>
+                            </li>
+                        {% endfor %}
+                        </ul>
+
+                    <!--CONSTRAINT COMPONENT AREA --------------------------------------------------->
+                </div>
+                <div class="constraint-column">
+                    <picture>
+                        <!-- If screen width is 1160px or less, use Constraints2.png -->
+                        <source srcset="{{ url_for('static', filename='img/Constraints2.png') }}" media="(max-width: 1000px)">
+                        <!-- Default image -->
+                        <img src="{{ url_for('static', filename='img/Constraints1.jpg') }}" alt="Constraints Image" class="const-img">
+                    </picture>
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <div class="button-area">
+            <button id="submit">Next round</button>
+        </div>
+
+
+    </div>
+
+    <div class="footer">
+        Video Instruction 
+    </div>
+    </div>
+
+
+
+    <script>
+    $(function () {
+        $("#sortable").sortable().disableSelection();
+
+        $("#submit").click(function () {
+            const order = $("#sortable li").map(function () {
+                return {
+                    id: $(this).data("id"),
+                    meter_flow_state: $(this).data("meter"),
+                    constraint_name: $(this).data("constraint-name"),
+                    is_system_tag: $(this).data("is-system"),
+                    margin: parseInt($(this).data("margin")),
+                    time_to_breach: parseInt($(this).data("time"))
+                };
+            }).get();
+
+            fetch("/submit_round", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ order })
+            })
+            .then(res => res.json())
+            .then(data => {
+                window.location.href = data.finished ? "/complete" : "/game";
+            })
+            .catch(err => alert("Error submitting round: " + err));
+        });
+
+        $(".metrics.momo .metric-box.ttb").each(function () {
+            const $ttbBox = $(this);
+            let currentTime = parseInt($ttbBox.data("ttb"));
+            if (isNaN(currentTime)) return;
+
+            const urgentMax = 5;      // urgent time max value
+            const warningMin = 6;     // warning time min value
+            const warningMax = 15;    // warning time max value
+
+            const $fill = $ttbBox.find(".progress-fill");
+
+            let widthPercent = 0;
+
+            if (currentTime === 0) {
+                // Urgent: fully filled
+                widthPercent = 100;
+                $ttbBox.removeClass("healthy warning").addClass("urgent");
+            } else if (currentTime > 0 && currentTime <= urgentMax) {
+                // Urgent range: map 0-5 to 100%-20%
+                widthPercent = 20 + ((urgentMax - currentTime) / urgentMax) * 80;
+                $ttbBox.removeClass("healthy warning").addClass("urgent");
+            } else if (currentTime >= warningMin && currentTime <= warningMax) {
+                // Warning range: map 6-15 to 0%-100%
+                widthPercent = ((currentTime - warningMin) / (warningMax - warningMin)) * 100;
+                $ttbBox.removeClass("healthy urgent").addClass("warning");
+            } else if (currentTime > warningMax) {
+                // Healthy, no fill
+                widthPercent = 0;
+                $ttbBox.removeClass("warning urgent").addClass("healthy");
+            } else {
+                // fallback
+                widthPercent = 0;
+                $ttbBox.removeClass("warning urgent").addClass("healthy");
+            }
+
+            $fill.css("width", widthPercent + "%");
+        });
+    });
+
+    </script>
+
+
+    <script>
+    function updateConstraintImage() {
+        const img = document.getElementById('constraintImage');
+        if (window.innerWidth <= 1000) {
+        img.src = "{{ url_for('static', filename='img/Constraints2.png') }}";
+        } else {
+        img.src = "{{ url_for('static', filename='img/Constraints1.jpg') }}";
+        }
+    }
+
+    // Run on page load and window resize
+    window.addEventListener('load', updateConstraintImage);
+    window.addEventListener('resize', updateConstraintImage);
+    </script>
+
+</body>
+</html>
