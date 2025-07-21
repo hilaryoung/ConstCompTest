@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, session, jsonify, redirect, url_for, flash
 import random, csv, os, time
 import random
+import csv
+from collections import defaultdict
 
 app = Flask(__name__)
 app.secret_key = "supersecretkey"  # ⚠️ replace in production
@@ -180,7 +182,7 @@ def comment():
 
             save_comments(round_num, name, role, ui_tested, comment_text)
 
-        # ✅ Increment after saving
+        # Move to next round
         session["round_index"] += 1
 
         if session["round_index"] >= len(session["round_order"]):
@@ -188,11 +190,12 @@ def comment():
 
         return redirect(url_for("game"))
 
-    # ✅ For GET: get the round just completed
+    # ✅ For GET: show the current round (not yet incremented)
     round_idx = session["round_index"]
     current_round = session["round_order"][round_idx]
 
     return render_template("comment.html", round_counter=round_idx + 1, round=current_round)
+
 
 
 
@@ -275,6 +278,42 @@ def save_comments(round_num, name, role, ui_tested, comment):
             "ui_tested": ui_tested,
             "comment": comment
         })
+
+
+
+# ───────────────────────  RESULTS ROUTE ─────────────────────────
+@app.route("/results")
+def view_results():
+    results = []
+    unique_users = set()
+
+    try:
+        with open("results.csv", newline="") as f:
+            reader = csv.DictReader(f)
+            # Get the second column header name from the CSV fieldnames
+            second_col = reader.fieldnames[1]  # index 1 for 2nd column
+
+            for row in reader:
+                try:
+                    row["round"] = int(row["round"])
+                except:
+                    pass
+                results.append(row)
+                user_val = row[second_col].strip()
+                unique_users.add(user_val)
+
+        print(f"Loaded {len(results)} rows from results.csv")
+        print(f"Total unique users (based on 2nd column '{second_col}'): {len(unique_users)}")
+    except Exception as e:
+        print("Error reading results.csv:", e)
+
+    return render_template("results.html", results=results, total_users=len(unique_users))
+
+
+    
+
+
+
 
 
 # ────────────────────────────────────────────────────────────────────

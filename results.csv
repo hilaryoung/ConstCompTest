@@ -1,72 +1,60 @@
-3,1,1,SCOTTEX-37,healthy,SCOTTEX-32,False,3,5,151.41
-3,1,1,SCOTTEX-32,healthy,SCOTTEX-32,False,-2,0,151.41
-3,1,1,SCOTTIMP-17,healthy,SCOTTEX-37,False,29,28,151.41
-3,1,1,SCOTTEX-45,healthy,SCOTTEX-32,False,7,3,151.41
-3,1,1,SCOTTIMP-6,healthy,SCOTTEX-37,False,21,17,151.41
-3,1,1,SCOTTIMP-20,healthy,SCOTTEX-32,False,11,7,151.41
-5,1,1,SCOTTEX-25,healthy,SCOTTIMP-40,False,22,26,0.95
-5,1,1,SCOTTIMP-40,healthy,SCOTTIMP-40,False,3,0,0.95
-5,1,1,SCOTTEX-52,healthy,SCOTTEX-52,False,11,12,0.95
-5,1,1,SCOTTEX-12,healthy,SCOTTIMP-40,False,5,2,0.95
-5,1,1,SCOTTEX-31,healthy,SCOTTIMP-40,False,29,17,0.95
-5,1,1,SCOTTEX-61,healthy,SCOTTEX-61,False,-2,0,0.95
-3,1,1,SCOTTEX-33,healthy,SCOTTIMP-31,False,7,0,1.0
-3,1,1,SCOTTIMP-31,healthy,SCOTTIMP-31,False,0,0,1.0
-3,1,1,SCOTTEX-3,healthy,SCOTTIMP-31,False,23,26,1.0
-3,1,1,SCOTTEX-40,healthy,SCOTTIMP-31,False,20,22,1.0
-3,1,1,SCOTTIMP-33,healthy,SCOTTIMP-31,False,11,11,1.0
-3,1,1,SCOTTEX-52,healthy,SCOTTIMP-31,False,3,3,1.0
-4,1,1,SCOTTEX-8,healthy,SCOTTIMP-64,False,11,7,1.4
-4,1,1,SCOTTEX-58,healthy,SCOTTIMP-64,False,23,18,1.4
-4,1,1,SCOTTEX-28,healthy,SCOTTIMP-64,False,26,29,1.4
-4,1,1,SCOTTEX-1,healthy,SCOTTEX-1,False,-1,0,1.4
-4,1,1,SCOTTIMP-64,healthy,SCOTTIMP-64,False,2,4,1.4
-4,1,1,SCOTTIMP-75,healthy,SCOTTIMP-75,False,6,1,1.4
-2,1,1,SCOTTEX-65,healthy,SCOTTIMP-64,False,16,20,1.64
-2,1,1,SCOTTIMP-64,healthy,SCOTTIMP-64,False,4,3,1.64
-2,1,1,SCOTTEX-11,healthy,SCOTTIMP-64,False,7,1,1.64
-2,1,1,SCOTTIMP-63,healthy,SCOTTIMP-64,False,11,8,1.64
-2,1,1,SCOTTIMP-44,healthy,SCOTTIMP-44,False,-5,0,1.64
-2,1,1,SCOTTIMP-80,healthy,SCOTTIMP-64,False,16,30,1.64
-1,1,1,SCOTTIMP-15,healthy,SCOTTIMP-14,False,11,9,0.9
-1,1,1,SCOTTEX-5,healthy,SCOTTIMP-14,False,5,4,0.9
-1,1,1,SCOTTIMP-44,healthy,SCOTTEX-5,False,29,18,0.9
-1,1,1,SCOTTIMP-35,healthy,SCOTTIMP-35,False,-1,0,0.9
-1,1,1,SCOTTIMP-14,healthy,SCOTTIMP-14,False,10,2,0.9
-1,1,1,SCOTTIMP-63,healthy,SCOTTEX-5,False,30,20,0.9
-5,1,1,SCOTTIMP-65,healthy,SCOTTIMP-65,False,11,10,1.37
-5,1,1,SCOTTIMP-62,healthy,SCOTTEX-56,False,10,1,1.37
-5,1,1,SCOTTEX-56,healthy,SCOTTEX-56,False,-4,0,1.37
-5,1,1,SCOTTEX-42,healthy,SCOTTIMP-62,False,29,28,1.37
-5,1,1,SCOTTEX-39,healthy,SCOTTEX-56,False,2,3,1.37
-5,1,1,SCOTTIMP-63,healthy,SCOTTIMP-62,False,20,25,1.37
-3,1,1,SCOTTEX-48,healthy,SCOTTEX-48,False,-4,0,1.46
-3,1,1,SCOTTEX-5,healthy,SCOTTEX-5,False,11,10,1.46
-3,1,1,SCOTTEX-75,healthy,SCOTTEX-48,False,5,4,1.46
-3,1,1,SCOTTEX-52,healthy,SCOTTEX-48,False,24,17,1.46
-3,1,1,SCOTTIMP-47,healthy,SCOTTEX-48,False,17,29,1.46
-3,1,1,SCOTTEX-17,healthy,SCOTTEX-48,False,10,2,1.46
-5,1,1,SCOTTIMP-41,healthy,SCOTTIMP-75,False,17,19,1.33
-5,1,1,SCOTTEX-13,healthy,SCOTTIMP-42,False,10,4,1.33
-5,1,1,SCOTTEX-3,healthy,SCOTTIMP-42,False,11,9,1.33
-5,1,1,SCOTTIMP-42,healthy,SCOTTIMP-42,False,-5,0,1.33
-5,1,1,SCOTTIMP-75,healthy,SCOTTIMP-42,False,9,3,1.33
-5,1,1,SCOTTIMP-73,healthy,SCOTTIMP-75,False,20,30,1.33
-1,1,1,SCOTTIMP-22,healthy,SCOTTIMP-43,False,2,1,1.55
-1,1,1,SCOTTIMP-3,healthy,SCOTTIMP-3,False,-4,0,1.55
-1,1,1,SCOTTIMP-54,healthy,SCOTTEX-10,False,27,16,1.55
-1,1,1,SCOTTIMP-43,healthy,SCOTTIMP-43,False,10,3,1.55
-1,1,1,SCOTTEX-10,healthy,SCOTTIMP-43,False,11,11,1.55
-1,1,1,SCOTTEX-78,healthy,SCOTTEX-10,False,20,20,1.55
-4,1,1,SCOTTEX-77,healthy,SCOTTEX-77,False,-5,0,1.01
-4,1,1,SCOTTEX-67,healthy,SCOTTEX-77,False,6,2,1.01
-4,1,1,SCOTTEX-21,healthy,SCOTTIMP-52,False,16,25,1.01
-4,1,1,SCOTTEX-25,healthy,SCOTTEX-25,False,25,15,1.01
-4,1,1,SCOTTIMP-52,healthy,SCOTTEX-45,False,11,13,1.01
-4,1,1,SCOTTEX-45,healthy,SCOTTEX-45,False,10,2,1.01
-2,1,1,SCOTTEX-17,healthy,SCOTTEX-47,False,17,22,1.07
-2,1,1,SCOTTEX-47,healthy,SCOTTIMP-21,False,11,9,1.07
-2,1,1,SCOTTIMP-12,healthy,SCOTTIMP-21,False,4,3,1.07
-2,1,1,SCOTTIMP-36,healthy,SCOTTIMP-21,False,7,5,1.07
-2,1,1,SCOTTIMP-21,healthy,SCOTTIMP-21,False,-3,0,1.07
-2,1,1,SCOTTEX-22,healthy,SCOTTEX-47,False,17,18,1.07
+5,John,NBE,SCOTTEX-64,healthy,SCOTTEX-64,False,-5,0,2.81
+5,John,NBE,SCOTTIMP-66,healthy,SCOTTIMP-28,False,11,12,2.81
+5,John,NBE,SCOTTEX-6,healthy,SCOTTEX-64,False,4,5,2.81
+5,John,NBE,SCOTTEX-1,healthy,SCOTTEX-1,False,28,25,2.81
+5,John,NBE,SCOTTIMP-41,healthy,SCOTTIMP-66,False,29,16,2.81
+5,John,NBE,SCOTTIMP-28,healthy,SCOTTIMP-28,False,2,1,2.81
+1,John,NBE,SCOTTEX-54,healthy,SCOTTEX-65,False,28,18,1.06
+1,John,NBE,SCOTTIMP-25,healthy,SCOTTIMP-25,False,11,7,1.06
+1,John,NBE,SCOTTEX-1,healthy,SCOTTEX-65,False,22,28,1.06
+1,John,NBE,SCOTTEX-69,healthy,SCOTTEX-65,False,4,2,1.06
+1,John,NBE,SCOTTEX-26,healthy,SCOTTEX-65,False,8,2,1.06
+1,John,NBE,SCOTTEX-65,healthy,SCOTTEX-65,False,-1,0,1.06
+4,John,NBE,SCOTTIMP-33,healthy,SCOTTEX-48,False,23,30,0.88
+4,John,NBE,SCOTTEX-76,healthy,SCOTTEX-12,False,7,1,0.88
+4,John,NBE,SCOTTEX-12,healthy,SCOTTEX-12,False,0,0,0.88
+4,John,NBE,SCOTTEX-48,healthy,SCOTTEX-12,False,3,3,0.88
+4,John,NBE,SCOTTEX-24,healthy,SCOTTEX-12,False,11,11,0.88
+4,John,NBE,SCOTTEX-57,healthy,SCOTTEX-48,False,24,27,0.88
+3,John,NBE,SCOTTEX-19,healthy,SCOTTIMP-13,False,24,19,1.1
+3,John,NBE,SCOTTIMP-13,healthy,SCOTTIMP-13,False,25,16,1.1
+3,John,NBE,SCOTTIMP-7,healthy,SCOTTIMP-7,False,-4,0,1.1
+3,John,NBE,SCOTTEX-11,healthy,SCOTTEX-11,False,7,3,1.1
+3,John,NBE,SCOTTIMP-31,healthy,SCOTTIMP-31,False,8,2,1.1
+3,John,NBE,SCOTTEX-66,healthy,SCOTTEX-66,False,11,13,1.1
+2,John,NBE,SCOTTIMP-5,healthy,SCOTTIMP-4,False,25,29,1.06
+2,John,NBE,SCOTTIMP-4,healthy,SCOTTIMP-23,False,11,11,1.06
+2,John,NBE,SCOTTIMP-42,healthy,SCOTTIMP-4,False,28,30,1.06
+2,John,NBE,SCOTTIMP-20,healthy,SCOTTIMP-23,False,7,4,1.06
+2,John,NBE,SCOTTIMP-80,healthy,SCOTTIMP-23,False,3,2,1.06
+2,John,NBE,SCOTTIMP-23,healthy,SCOTTIMP-23,False,-4,0,1.06
+3,Sample User,Sample User Role,SCOTTIMP-80,healthy,SCOTTIMP-80,False,18,26,1.67
+3,Sample User,Sample User Role,SCOTTEX-13,healthy,SCOTTIMP-70,False,10,0,1.67
+3,Sample User,Sample User Role,SCOTTIMP-70,healthy,SCOTTIMP-70,False,-5,0,1.67
+3,Sample User,Sample User Role,SCOTTIMP-2,healthy,SCOTTIMP-70,False,5,3,1.67
+3,Sample User,Sample User Role,SCOTTEX-68,healthy,SCOTTIMP-70,False,11,6,1.67
+3,Sample User,Sample User Role,SCOTTEX-64,healthy,SCOTTIMP-2,False,25,27,1.67
+2,Sample User,Sample User Role,SCOTTEX-61,healthy,SCOTTEX-61,False,-4,0,1.23
+2,Sample User,Sample User Role,SCOTTEX-62,healthy,SCOTTEX-61,False,4,1,1.23
+2,Sample User,Sample User Role,SCOTTIMP-25,healthy,SCOTTIMP-25,False,22,15,1.23
+2,Sample User,Sample User Role,SCOTTIMP-59,healthy,SCOTTEX-61,False,11,11,1.23
+2,Sample User,Sample User Role,SCOTTEX-77,healthy,SCOTTEX-61,False,6,3,1.23
+2,Sample User,Sample User Role,SCOTTEX-22,healthy,SCOTTIMP-25,False,20,29,1.23
+4,Sample User,Sample User Role,SCOTTIMP-79,healthy,SCOTTEX-74,False,11,14,0.98
+4,Sample User,Sample User Role,SCOTTIMP-34,healthy,SCOTTEX-74,False,16,24,0.98
+4,Sample User,Sample User Role,SCOTTIMP-61,healthy,SCOTTEX-74,False,3,3,0.98
+4,Sample User,Sample User Role,SCOTTEX-1,healthy,SCOTTEX-74,False,8,3,0.98
+4,Sample User,Sample User Role,SCOTTEX-74,healthy,SCOTTEX-74,False,-3,0,0.98
+4,Sample User,Sample User Role,SCOTTIMP-29,healthy,SCOTTEX-74,False,27,29,0.98
+1,Sample User,Sample User Role,SCOTTEX-44,healthy,SCOTTIMP-66,False,3,3,1.11
+1,Sample User,Sample User Role,SCOTTEX-32,healthy,SCOTTEX-32,False,25,30,1.11
+1,Sample User,Sample User Role,SCOTTIMP-53,healthy,SCOTTIMP-66,False,11,8,1.11
+1,Sample User,Sample User Role,SCOTTEX-1,healthy,SCOTTIMP-66,False,10,3,1.11
+1,Sample User,Sample User Role,SCOTTEX-14,healthy,SCOTTEX-44,False,27,22,1.11
+1,Sample User,Sample User Role,SCOTTIMP-66,healthy,SCOTTIMP-66,False,-1,0,1.11
+5,Sample User,Sample User Role,SCOTTEX-72,healthy,SCOTTIMP-11,False,11,13,0.98
+5,Sample User,Sample User Role,SCOTTIMP-11,healthy,SCOTTIMP-11,False,0,0,0.98
+5,Sample User,Sample User Role,SCOTTIMP-41,healthy,SCOTTIMP-11,False,29,22,0.98
+5,Sample User,Sample User Role,SCOTTIMP-79,healthy,SCOTTIMP-11,False,9,4,0.98
+5,Sample User,Sample User Role,SCOTTIMP-20,healthy,SCOTTIMP-11,False,30,15,0.98
+5,Sample User,Sample User Role,SCOTTEX-13,healthy,SCOTTIMP-11,False,8,3,0.98
