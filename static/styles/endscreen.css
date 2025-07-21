@@ -16,9 +16,10 @@
   font-style: normal;
   font-display: swap;
 }
+
 body {
     text-align: center;
-    margin-top: 240px;
+    margin-top: 200px;
     background-color: #1E1E1E;
     color: white;
     font-family: 'IBM Plex Sans', sans-serif;
@@ -45,20 +46,32 @@ body {
     line-height: 42px;
 }
 
-.comment-input{
+/* New flex container to align textarea and button */
+.comment-form-row {
+  display: block; /* normal block layout */
+  width: 50vw; /* same width as textarea */
+  margin: 0 auto; /* center the whole block horizontally if you want */
+}
+
+/* Updated textarea */
+.comment-input {
+  width: 100%;   /* fill full width of container */
   border-radius: 0px;
   padding: 16px;
   border: none;
-  height: 10vh;
-  width: 50vw;
+  height: 10vh;  /* or adjust as needed */
+  box-sizing: border-box; /* include padding in width */
+  font-family: 'IBM Plex Sans', sans-serif;
+  resize: vertical;
 }
 
-
+/* Remove old button-container style, not needed with flex */
 .button-container {
-  text-align: right;
-  padding-right: 36px;
+  text-align: right;  /* aligns the button to the right */
+  padding-top: 16px;   /* small spacing between textarea and button */
 }
 
+/* Button styles */
 .button-primary {
     background-color: #4554E5;
     color: white;

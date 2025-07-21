@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Complete</title>
+  <title>Constraint Component UI Testing</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/endscreen.css') }}" />
 </head>
 <body>
@@ -17,13 +17,15 @@
     <form method="POST" action="{{ url_for('submit_complete_comment') }}">
       <div class="comment-form-row">
         <textarea name="comment" id="comment" rows="4" placeholder="Enter your comments here..." class="comment-input"></textarea>
-        <button type="submit" class="button-primary">Send</button>
+        <div class="button-container">
+          <button type="submit" class="button-primary">Send</button>
+        </div>
       </div>
 
-      <!-- Hidden inputs -->
       <input type="hidden" name="name" value="{{ name }}" />
       <input type="hidden" name="role" value="{{ role }}" />
     </form>
+
 
   </div>
 </body>
