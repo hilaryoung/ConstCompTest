@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Round {{ round_counter }} feedback</title>
+  <style>
+    body{font-family:sans-serif;margin:2rem;}
+    textarea{width:100%;height:120px;}
+    button{margin-top:1rem;padding:.6rem 1.2rem;font-size:1rem;}
+  </style>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/base.css') }}">
+  
+</head>
+<body>
+
+  <div class="page-container">
+
+    <div class="game-header">
+        <div class="header-title">
+            Constraint Component Testing   
+            <div class="header-divider2"></div>  
+            Round {{ round_counter }} feedback 
+        </div>
+
+    </div>
+
+
+    <div class="comment-area">
+
+      <div class="header-description">
+            Tell us what you think of the Constraint Component design you just saw
+
+            <br>
+
+            {% if round == 1 %}
+              <img class="image-ref" src="{{ url_for('static', filename='img/option1.png') }}">
+            {% elif round == 2 %}
+              <img class="image-ref" src="{{ url_for('static', filename='img/option2.png') }}">
+            {% elif round == 3 %}
+              <img class="image-ref" src="{{ url_for('static', filename='img/option3.png') }}">
+            {% elif round == 4 %}
+              <img class="image-ref" src="{{ url_for('static', filename='img/option4.png') }}">
+            {% elif round == 5 %}
+              <img class="image-ref" src="{{ url_for('static', filename='img/option5.png') }}">
+            {% endif %}
+
+      </div>
+
+      <form method="POST">
+        <textarea name="comment" required placeholder="Your comment here..." class="comment-input"></textarea>
+        <div class="button-container">
+          <button type="submit" class="button-primary" disabled>Next</button>
+        </div>
+      </form>
+
+
+    </div>
+
+
+    <div class="footer">
+        <a class="link" href="https://youtu.be/U-8Ixu6Y-kQ" target="_blank" rel="noopener noreferrer">
+          Video Instruction
+        </a>
+    </div>
+
+  </div>
+
+
+    <script>
+      const textarea = document.querySelector('textarea[name="comment"]');
+      const button = document.querySelector('.button-primary');
+
+      textarea.addEventListener('input', () => {
+        button.disabled = textarea.value.trim() === "";
+      });
+    </script>
+
+
+</body>
+</html>

@@ -6,19 +6,28 @@
 </head>
 <body>
 
-    <h1>Please enter the password</h1>
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul style="color: red;">
-        {% for message in messages %}
-          <li>{{ message }}</li>
-        {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
-    <form method="POST">
-        <input type="password" name="password" autofocus required />
-        <button type="submit">Enter</button>
-    </form>
+    <div class="center-wrapper">
+        <div class="password-area">
+            <div class="input-label">Password:</div>
+
+            <form method="POST">
+            <input class="text-input-filed" type="password" name="password" autofocus required placeholder="Input password"/>
+            <button class="button-primary" type="submit">Enter</button>
+            </form>
+
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul style="color: red;">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+
+
+    
 </body>
 </html>

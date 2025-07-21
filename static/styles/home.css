@@ -1,0 +1,217 @@
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('../font/IBM_Plex_Sans/IBM-Plex-Sans-Regular.woff2') format('woff2'),
+       url('../font/IBM_Plex_Sans/IBM-Plex-Sans-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;  /* horizontal center */
+  align-items: center;      /* vertical center */
+  background-color: #1E1E1E;
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+
+.center-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Main container takes full height */
+.row {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Top row: side-by-side 50% columns */
+.top-row {
+  display: flex;
+  flex: 1; /* fill available vertical space */
+}
+
+/* Side-by-side equal-height columns */
+.context-col {
+  width: 40%;
+  background-color: #1E1E1E;
+  color: white;
+  padding-top: 32px;
+  display: flex;
+  flex-direction: column;
+}
+
+.instruction-col {
+  width: 60%;
+  background-color: #1E1E1E;
+  color: white;
+  padding-top: 32px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Individual padding for each column */
+.context-col {
+  padding-left: 64px;
+  padding-right: 50px;
+}
+
+.instruction-col {
+  padding-left: 50px;
+  padding-right: 64px;
+}
+
+/* Full-width user column below */
+.user-col {
+  width: 100%;
+  padding-left: 64px;
+  padding-right: 64px;
+  padding-top: 24px;
+  padding-bottom: 64px;
+  background-color: black;
+  color: white;
+}
+
+/* Text styles */
+.description-header {
+  font-weight: 400;
+  font-size: 14px;
+  color: #cacaca;
+}
+
+.description-header2 {
+  font-weight: 400;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.000001);
+}
+
+.sub-header {
+  font-size: 20px;
+  font-weight: 600;
+  padding-top: 42px;
+  padding-bottom: 20px;
+  color: #7D89FF;
+  letter-spacing: 1px;
+}
+
+.sub-header2 {
+  font-size: 22px;
+  letter-spacing: 1px;
+  font-weight: 600;
+  padding-top: 42px;
+  padding-bottom: 0px;
+  color: #7D89FF;
+}
+
+.description-text {
+  font-size: 15px;
+  line-height: 24px;
+  font-weight: 350;
+  word-spacing: 0.5px;
+}
+
+ul.b {
+  padding-left: 20px;
+}
+
+.video-tutorial{
+    width: 70%;
+    height: 35vh;
+    border: none;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+#startForm {
+  display: flex;
+  flex-direction: column;
+  gap:24px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 4px;
+  font-weight: bold;
+}
+
+input {
+  padding: 8px;
+  font-size: 1rem;
+}
+
+#startBtn {
+  padding: 8px 16px;
+  font-size: 1rem;
+}
+
+.input-label{
+    font-size: 14px;
+    letter-spacing: 0.32px;
+    color:#B0B0B0 ;
+    font-weight: 400;
+}
+
+.text-input-filed{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-right: 12px;
+    padding-left: 12px;
+    font-size: 14px;
+    border-radius: 0px;
+    background-color: #2C2E30;
+    border: none;
+    border-bottom: 1px solid #5C6670;
+    width: 400px;
+    color: white;
+}
+
+.button-primary {
+    background-color: #4554E5;
+    color: white;
+    border-radius: 0px;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    border: 0px;
+    transition: background-color 0.3s, opacity 0.3s;
+    height: 40px;
+    width: 120px;
+}
+
+.button-primary:disabled {
+  background-color: #656C72;
+    color: #84898E;
+    border-radius: 0px;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: 40px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    border: 0px;
+  cursor: not-allowed;
+  opacity: 0.6;
+  width: 120px;
+}
+
+
+.button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}

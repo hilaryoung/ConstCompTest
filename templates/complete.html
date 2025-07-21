@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Complete</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/endscreen.css') }}" />
+</head>
+<body>
+  <div class="complete-message">
+    <div class="header-text">Thanks for helping us build better tools!</div>
+    <div class="subheader-text">
+      For questions, feedback or additional comments on the Constraint Component UI please send here or reach out to hilary.young@neso.energy
+    </div>
+
+    <br>
+
+    <form method="POST" action="{{ url_for('submit_complete_comment') }}">
+      <div class="comment-form-row">
+        <textarea name="comment" id="comment" rows="4" placeholder="Enter your comments here..." class="comment-input"></textarea>
+        <button type="submit" class="button-primary">Send</button>
+      </div>
+
+      <!-- Hidden inputs -->
+      <input type="hidden" name="name" value="{{ name }}" />
+      <input type="hidden" name="role" value="{{ role }}" />
+    </form>
+
+  </div>
+</body>
+</html>

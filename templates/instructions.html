@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Constraint Component UI Testing</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/divider.css') }}">
+</head>
+<body>
+
+    <div class="complete-message">
+        <div class="header-text">Instructions</div>
+        <div class="description-text">
+
+            <div class="row">
+                <div class="inst-col">
+                    <!--Instruction-->
+
+                    <ol>
+                        <li>This test consists of 5 rounds, each showcasing a different UI design for the Constraint Component.</li>
+                        <li>In each round, your task is to prioritise the constraints from the one that needs your immediate attention to the one that can be addressed last. In other words, rank them from highest to lowest priority.</li>
+                        <li>To reorder the constraints, simply drag and drop them into your preferred order.
+                            (See example video:) 
+                        </li>
+                        <li>Once you're satisfied with your ranking, click Next to move on.</li>
+                    </ol>
+
+                    <!--end of instruction-->
+                </div>
+
+                <div class="video-col">
+                    <!--Video-->
+
+                    <iframe 
+                        class="video-tutorial"
+                        src="https://www.youtube.com/embed/U-8Ixu6Y-kQ" title="Constraint Component UI Test Tutorial">
+                    </iframe>
+
+                    <!-- end of video-->
+                </div>
+            </div>
+        </div>
+
+        <div class="button-container">
+
+            <form method="POST">
+                <button type="submit" class="button-primary">Next</button>
+            </form>
+
+        </div>
+
+
+    </div>
+</body>
+</html>

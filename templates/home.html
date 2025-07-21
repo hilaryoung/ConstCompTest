@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Welcome</title>
+    <title>Constraint Component UI Testing</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/home.css') }}">
     <style>
-      body { font-family: Arial, sans-serif; margin: 20px; }
       label { display: block; margin-top: 10px; }
       input { padding: 5px; width: 200px; }
       button { margin-top: 20px; padding: 10px 20px; font-size: 16px; }
@@ -12,21 +12,31 @@
     </style>
 </head>
 <body>
-    <h1>Const game test</h1>
 
-    {% if error %}
-      <div class="error">{{ error }}</div>
-    {% endif %}
+    <div class="center-container">
+        <form method="POST" id="startForm">
+        <div class="form-group">
+            <label for="name" class="input-label">Name</label>
+            <input type="text" id="name" name="name" value="{{ name|default('') }}" required class="text-input-filed" placeholder="E.g. John Smith" />
+        </div>
 
-    <form method="POST" id="startForm">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" value="{{ name|default('') }}" required />
+        <div class="form-group">
+            <label for="role" class="input-label">Role</label>
+            <input type="text" id="role" name="role" value="{{ role|default('') }}" required class="text-input-filed" placeholder="E.g. NBE, ZBE" />
+        </div>
 
-        <label for="role">Role:</label>
-        <input type="text" id="role" name="role" value="{{ role|default('') }}" required />
 
-        <button type="submit" id="startBtn" disabled>Start</button>
-    </form>
+
+        <div class="button-wrapper">
+            <button type="submit" id="startBtn" disabled class="button-primary">Start</button>
+        </div>
+
+        </form>
+
+        {% if error %}
+        <div class="error">{{ error }}</div>
+        {% endif %}
+  </div>
 
     <script>
       const nameInput = document.getElementById('name');

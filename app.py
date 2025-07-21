@@ -1,238 +1,282 @@
 from flask import Flask, render_template, request, session, jsonify, redirect, url_for, flash
+import random, csv, os, time
 import random
-import csv
-import os
-import time  # for tracking time
 
 app = Flask(__name__)
-app.secret_key = 'supersecretkey'  # Required for session tracking
+app.secret_key = "supersecretkey"  # ⚠️ replace in production
 
-# ---- Password Page Route ----
-
-@app.route('/login', methods=['GET', 'POST'])
+# ─────────────────────────────  AUTH  ──────────────────────────────
+@app.route("/login", methods=["GET", "POST"])
 def login():
-    if request.method == 'POST':
-        password = request.form.get('password', '')
-        if password == '1':
-            session['authenticated'] = True
-            return redirect(url_for('home'))
-        else:
-            flash('Incorrect password, please try again.')
-    return render_template('login.html')
+    if request.method == "POST":
+        if request.form.get("password") == "1":
+            session["authenticated"] = True
+            return redirect(url_for("context"))  # 👈 go to context first
+        flash("Incorrect password, please try again.")
+    return render_template("login.html")
 
-# ---- Random Generators ----
 
+@app.route("/context", methods=["GET", "POST"])
+def context():
+    if not session.get("authenticated"):
+        return redirect(url_for("login"))
+
+    if request.method == "POST":
+        return redirect(url_for("instructions"))
+
+    return render_template("context.html")
+
+@app.route("/instructions", methods=["GET", "POST"])
+def instructions():
+    if not session.get("authenticated"):
+        return redirect(url_for("login"))
+
+    if request.method == "POST":
+        return redirect(url_for("home"))
+
+    return render_template("instructions.html")
+
+
+# ──────────────────────  UTILITY – DATA GENERATION  ─────────────────
 def random_constraint_name():
-    prefix = random.choice(["SCOTTEX", "SCOTTIMP"])
-    number = random.randint(1, 80)
-    return f"{prefix}-{number}"
+    return f'{random.choice(["SCOTTEX", "SCOTTIMP"])}-{random.randint(1,80)}'
 
-def random_margin_value():
-    return random.randint(-10, 40)
+def random_margin_value(): return random.randint(-10, 40)
+def random_time_to_breach(): return random.randint(0, 20)
 
-def random_time_to_breach():
-    return random.randint(0, 20)
 
 def generate_items():
-    items = []
     seen_ids = set()
+    items = []
 
-    urgent_count = 0
-    warning_count = 0
-    system_tag_count = 0
+    def new_id():
+        while True:
+            cid = random_constraint_name()
+            if cid not in seen_ids:
+                seen_ids.add(cid)
+                return cid
 
-    special_healthy_needed = 2
-    margin_zero_or_less_needed = 1
-    margin_1_5_and_ttb_1_5_needed = 1
-    ttb_9_13_needed = 2
-
-    while len(items) < 6:
-        constraint_name = random_constraint_name()
-        if constraint_name in seen_ids:
-            continue
-        seen_ids.add(constraint_name)
-
-        is_system_tag = constraint_name.startswith("SCOTTIMP")
-        if is_system_tag:
-            if system_tag_count >= 1:
-                continue
-            system_tag_count += 1
-
-        if special_healthy_needed > 0 and not is_system_tag:
-            margin = random.randint(12, 40)
-            time_breach = random.randint(15, 20)
-            meter_flow_state = "healthy"
-            special_healthy_needed -= 1
-
-        elif margin_zero_or_less_needed > 0:
-            margin = random.randint(-10, 0)
-            time_breach = 0
-            meter_flow_state = "urgent"
-            margin_zero_or_less_needed -= 1
-            urgent_count += 1
-
-        elif margin_1_5_and_ttb_1_5_needed > 0:
-            margin = random.randint(1, 5)
-            time_breach = random.randint(1, 5)
-            if warning_count < 1:
-                meter_flow_state = "warning"
-                warning_count += 1
-            else:
-                meter_flow_state = "healthy"
-            margin_1_5_and_ttb_1_5_needed -= 1
-
-        elif ttb_9_13_needed > 0:
-            margin = random_margin_value()
-            time_breach = 0 if margin <= 0 else random.randint(9, 13)
-            if margin <= 0 and urgent_count < 1:
-                meter_flow_state = "urgent"
-                urgent_count += 1
-            elif margin <= 0:
-                meter_flow_state = "healthy"
-            elif 1 <= margin <= 10 and warning_count < 1:
-                meter_flow_state = "warning"
-                warning_count += 1
-            else:
-                meter_flow_state = "healthy"
-            ttb_9_13_needed -= 1
-
-        else:
-            margin = random_margin_value()
-            time_breach = 0 if margin <= 0 else random_time_to_breach()
-
-            if margin <= 0 and urgent_count < 1:
-                meter_flow_state = "urgent"
-                urgent_count += 1
-            elif margin <= 0:
-                meter_flow_state = "healthy"
-            elif 1 <= margin <= 10 and warning_count < 1:
-                meter_flow_state = "warning"
-                warning_count += 1
-            else:
-                meter_flow_state = "healthy"
-
+    def add_item(margin, ttb):
+        # Enforce ttb = 0 if margin <= 0
+        if margin <= 0:
+            ttb = 0
         items.append({
-            "id": constraint_name,
-            "meter_flow_state": meter_flow_state,
-            "constraint_name": constraint_name,
-            "is_system_tag": is_system_tag,
+            "id": new_id(),
+            "meter_flow_state": "healthy",
+            "constraint_name": list(seen_ids)[-1],
+            "is_system_tag": False,
             "margin": margin,
-            "time_to_breach": time_breach,
+            "time_to_breach": ttb
         })
 
+    # 1. One item with margin -5 to 0 and TTB = 0
+    add_item(random.randint(-5, 0), 0)
+
+    # 2. Two items with margin 2–10 and TTB 0–5
+    for _ in range(2):
+        add_item(random.randint(2, 10), random.randint(0, 5))
+
+    # 3. One item with margin 11 and TTB 6–14
+    add_item(11, random.randint(6, 14))
+
+    # 4. Two items with margin 16–30 and TTB 15–30
+    for _ in range(2):
+        add_item(random.randint(16, 30), random.randint(15, 30))
+
+    # 5. Shuffle so order is randomized
+    random.shuffle(items)
     return items
 
-# ---- Routes ----
 
-@app.route('/', methods=['GET', 'POST'])
+
+
+
+
+
+# ─────────────────────────────  ROUTES  ────────────────────────────
+@app.route("/", methods=["GET", "POST"])
 def home():
-    if not session.get('authenticated'):
-        return redirect(url_for('login'))
+    if not session.get("authenticated"):
+        return redirect(url_for("login"))
 
-    if request.method == 'POST':
-        name = request.form.get('name', '').strip()
-        role = request.form.get('role', '').strip()
+    if request.method == "POST":
+        name, role = request.form.get("name", "").strip(), request.form.get("role", "").strip()
         if not name or not role:
-            error = "Please fill in both name and role."
-            return render_template('home.html', error=error, name=name, role=role)
-        
-        session['name'] = name
-        session['role'] = role
-        session['round_order'] = random.sample([1, 2, 3, 4, 5], 5)
-        session['round_index'] = 0
-        session['results'] = []
-        return redirect(url_for('game'))
-    
-    return render_template('home.html')
+            return render_template("home.html", error="Please fill in both name and role.",
+                                   name=name, role=role)
 
-@app.route('/game')
+        session.update({
+            "name": name,
+            "role": role,
+            "round_order": random.sample([1, 2, 3, 4, 5], 5),
+            "round_index": 0,
+            "results": [],
+            "comments": []
+        })
+        return redirect(url_for("game"))
+    return render_template("home.html")
+
+@app.route("/game")
 def game():
-    if 'name' not in session or 'role' not in session:
-        return redirect(url_for('home'))
+    if "name" not in session:
+        return redirect(url_for("home"))
 
-    round_index = session.get('round_index', 0)
-    round_order = session.get('round_order', [])
-    
-    if round_index >= len(round_order):
-        return redirect(url_for('complete'))
+    idx, order = session["round_index"], session["round_order"]
+    if idx >= len(order):
+        return redirect(url_for("complete"))
 
-    round_num = round_order[round_index]
+    rnd = order[idx]
     items = generate_items()
-    session['current_items'] = items
-    session['round_start_time'] = time.time()  # ⏱️ Start time of the round
+    session["current_items"] = items
+    session["round_start_ts"] = time.time()
 
-    return render_template('game.html', round=round_num, items=items, round_counter=round_index + 1)
+    return render_template("game.html",
+                           round=rnd,
+                           items=items,
+                           round_counter=idx + 1)
 
-@app.route('/submit_round', methods=['POST'])
+@app.route("/submit_round", methods=["POST"])
 def submit_round():
-    if 'name' not in session or 'role' not in session:
-        return jsonify({'finished': True})
+    if "name" not in session:
+        return jsonify(finished=True)
 
-    order = request.json.get('order')
-    round_index = session.get('round_index', 0)
-    round_order = session.get('round_order', [])
-    round_num = round_order[round_index] if round_index < len(round_order) else None
+    order = request.json["order"]
+    idx = session["round_index"]
+    rnd = session["round_order"][idx]
 
-    name = session.get('name')
-    role = session.get('role')
+    result = {
+        "round": rnd,
+        "order": order,
+        "name": session["name"],
+        "role": session["role"],
+        "time_taken": round(time.time() - session["round_start_ts"], 2)
+    }
+    session["results"].append(result)
+    session.modified = True
 
-    start_time = session.get('round_start_time', time.time())
-    time_taken = round(time.time() - start_time, 2)  # ⏱️ duration in seconds
+    # Save the result immediately here
+    save_results([result])
 
-    session['results'].append({
-        'round': round_num,
-        'order': order,
-        'name': name,
-        'role': role,
-        'time_taken': time_taken
-    })
+    return jsonify(finished=False, redirect_url=url_for("comment"))
 
-    session['round_index'] += 1
 
-    if session['round_index'] >= len(round_order):
-        save_results_to_csv(session['results'])
-        session.clear()
-        return jsonify({'finished': True})
-    else:
-        return jsonify({'finished': False})
+@app.route("/comment", methods=["GET", "POST"])
+def comment():
+    if "name" not in session:
+        return redirect(url_for("home"))
 
-def save_results_to_csv(results):
-    csv_file = 'results.csv'
-    file_exists = os.path.isfile(csv_file)
+    if request.method == "POST":
+        comment_text = request.form.get("comment", "").strip()
+        session["comments"].append(comment_text)
+        session.modified = True
 
-    with open(csv_file, 'a', newline='') as csvfile:
-        fieldnames = [
-            'round', 'name', 'role', 'item_id', 'meter_flow_state', 
-            'constraint_name', 'is_system_tag', 'margin', 
-            'time_to_breach', 'time_taken_sec'
-        ]
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        if session.get("results"):
+            latest_result = session["results"][-1]
 
-        if not file_exists:
+            round_num = latest_result["round"]
+            name = session["name"]
+            role = session["role"]
+            ui_tested = f"UI{round_num}"
+
+            save_comments(round_num, name, role, ui_tested, comment_text)
+
+        # ✅ Increment after saving
+        session["round_index"] += 1
+
+        if session["round_index"] >= len(session["round_order"]):
+            return redirect(url_for("complete"))
+
+        return redirect(url_for("game"))
+
+    # ✅ For GET: get the round just completed
+    round_idx = session["round_index"]
+    current_round = session["round_order"][round_idx]
+
+    return render_template("comment.html", round_counter=round_idx + 1, round=current_round)
+
+
+
+
+@app.route("/complete", methods=["GET"])
+def complete():
+    # Do NOT clear session here so we can access name and role
+    name = session.get("name", "")
+    role = session.get("role", "")
+    return render_template("complete.html", name=name, role=role)
+
+@app.route("/submit_complete_comment", methods=["POST"])
+def submit_complete_comment():
+    name = request.form.get("name", "").strip()
+    role = request.form.get("role", "").strip()
+    comment = request.form.get("comment", "").strip()
+
+    if not name or not role or not comment:
+        # You might want to flash an error or redirect back with a message
+        return redirect(url_for("complete"))
+
+    # Save comment to morecomments.csv
+    path = "morecomments.csv"
+    exists = os.path.isfile(path)
+    with open(path, "a", newline="") as f:
+        cols = ["name", "role", "comment"]
+        writer = csv.DictWriter(f, fieldnames=cols)
+        if not exists:
+            writer.writeheader()
+        writer.writerow({
+            "name": name,
+            "role": role,
+            "comment": comment
+        })
+
+    # After saving clear the session and thank user or redirect to a thank you page
+    session.clear()
+    return render_template("thankyou.html", name=name)
+
+# ───────────────────────  CSV PERSISTENCE  ─────────────────────────
+def save_results(results):
+    path = "results.csv"
+    exists = os.path.isfile(path)
+    with open(path, "a", newline="") as f:
+        cols = ["round", "name", "role", "item_id", "meter_flow_state", "constraint_name",
+                "is_system_tag", "margin", "time_to_breach", "time_taken_sec"]
+        writer = csv.DictWriter(f, fieldnames=cols)
+        if not exists:
             writer.writeheader()
 
-        for round_result in results:
-            round_num = round_result['round']
-            name = round_result.get('name', '')
-            role = round_result.get('role', '')
-            time_taken = round_result.get('time_taken', 0)
-            for item in round_result['order']:
+        for r in results:
+            for item in r["order"]:
                 writer.writerow({
-                    'round': round_num,
-                    'name': name,
-                    'role': role,
-                    'item_id': item['id'],
-                    'meter_flow_state': item['meter_flow_state'],
-                    'constraint_name': item['constraint_name'],
-                    'is_system_tag': item['is_system_tag'],
-                    'margin': item['margin'],
-                    'time_to_breach': item['time_to_breach'],
-                    'time_taken_sec': time_taken
+                    "round": r["round"],
+                    "name": r["name"],
+                    "role": r["role"],
+                    "item_id": item["id"],
+                    "meter_flow_state": item["meter_flow_state"],
+                    "constraint_name": item["constraint_name"],
+                    "is_system_tag": item["is_system_tag"],
+                    "margin": item["margin"],
+                    "time_to_breach": item["time_to_breach"],
+                    "time_taken_sec": r["time_taken"]
                 })
 
-@app.route('/complete')
-def complete():
-    return "<h1>Thank you! The game is complete.</h1>"
+def save_comments(round_num, name, role, ui_tested, comment):
+    path = "usercomments.csv"
+    print(f"Saving comment to file: {os.path.abspath(path)}")  # Debug print with full path
+    exists = os.path.isfile(path)
+    with open(path, "a", newline="") as f:
+        cols = ["round", "name", "role", "ui_tested", "comment"]
+        writer = csv.DictWriter(f, fieldnames=cols)
+        if not exists:
+            writer.writeheader()
 
-if __name__ == '__main__':
+        writer.writerow({
+            "round": round_num,
+            "name": name,
+            "role": role,
+            "ui_tested": ui_tested,
+            "comment": comment
+        })
+
+
+# ────────────────────────────────────────────────────────────────────
+if __name__ == "__main__":
     app.run(debug=True)

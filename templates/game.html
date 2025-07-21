@@ -33,7 +33,7 @@
         <div class="header-title">
             Constraint Component Testing   
             <div class="header-divider2"></div>  
-            Round {{ round_counter }} {{ round }} <!--{{ round }}-->
+            Round {{ round_counter }}<!--{{ round }}-->
         </div>
 
         <div class="header-description">
@@ -273,7 +273,9 @@
     </div>
 
     <div class="footer">
-        Video Instruction 
+        <a class="link" href="https://youtu.be/U-8Ixu6Y-kQ" target="_blank" rel="noopener noreferrer">
+          Video Instruction
+        </a>
     </div>
     </div>
 
@@ -302,7 +304,13 @@
             })
             .then(res => res.json())
             .then(data => {
-                window.location.href = data.finished ? "/complete" : "/game";
+                if (data.finished) {
+                    window.location.href = "/complete";
+                } else if (data.redirect_url) {
+                    window.location.href = data.redirect_url;  // Go to comment page
+                } else {
+                    window.location.href = "/game"; // Fallback
+                }
             })
             .catch(err => alert("Error submitting round: " + err));
         });
@@ -312,32 +320,26 @@
             let currentTime = parseInt($ttbBox.data("ttb"));
             if (isNaN(currentTime)) return;
 
-            const urgentMax = 5;      // urgent time max value
-            const warningMin = 6;     // warning time min value
-            const warningMax = 15;    // warning time max value
+            const urgentMax = 5;
+            const warningMin = 6;
+            const warningMax = 15;
 
             const $fill = $ttbBox.find(".progress-fill");
-
             let widthPercent = 0;
 
             if (currentTime === 0) {
-                // Urgent: fully filled
                 widthPercent = 100;
                 $ttbBox.removeClass("healthy warning").addClass("urgent");
             } else if (currentTime > 0 && currentTime <= urgentMax) {
-                // Urgent range: map 0-5 to 100%-20%
                 widthPercent = 20 + ((urgentMax - currentTime) / urgentMax) * 80;
                 $ttbBox.removeClass("healthy warning").addClass("urgent");
             } else if (currentTime >= warningMin && currentTime <= warningMax) {
-                // Warning range: map 6-15 to 0%-100%
                 widthPercent = ((currentTime - warningMin) / (warningMax - warningMin)) * 100;
                 $ttbBox.removeClass("healthy urgent").addClass("warning");
             } else if (currentTime > warningMax) {
-                // Healthy, no fill
                 widthPercent = 0;
                 $ttbBox.removeClass("warning urgent").addClass("healthy");
             } else {
-                // fallback
                 widthPercent = 0;
                 $ttbBox.removeClass("warning urgent").addClass("healthy");
             }
@@ -345,7 +347,6 @@
             $fill.css("width", widthPercent + "%");
         });
     });
-
     </script>
 
 

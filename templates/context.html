@@ -1,0 +1,39 @@
+<!-- templates/context.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Constraint Component UI Testing</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/divider.css') }}">
+</head>
+<body>
+
+    <div class="complete-message">
+        <div class="header-text">Context</div>
+        <div class="description-text">
+                As part of our ongoing efforts to enhance the Constraint Monitor tool in OBP, we are introducing a new Constraint Component. This component is designed to display key details about constraints, including: Metered Status, System Tag, Margin, and Time to Breach.
+                Today we are specifically testing the UI of Margin between Limit and Transfer, and time to breach.
+
+                <br><br>
+                
+                The goal of creating the Constraint Component is to improve visibility into constraint conditions whenever they appear in the OBP UI. With this component we hope to:
+
+                <ul class="b">
+                    <li>Help users more easily identify and prioritise critical constraints</li>
+                    <li>Streamline constraints related operational decision-making</li>
+                    <li>Improve the overall monitoring and management of constraint-related issues across the platform</li>
+                </ul>
+        </div>
+
+        <div class="button-container">
+
+            <form method="POST">
+                <button type="submit" class="button-primary">Next</button>
+            </form>
+
+        </div>
+
+    
+
+    </div>
+</body>
+</html>
